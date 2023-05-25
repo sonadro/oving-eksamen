@@ -1,0 +1,30 @@
+const signupForm = document.querySelector('.loginForm');
+const feedbackElement = document.querySelector('.feedback');
+
+const signup = async user => {
+    const res = await fetch('/user-signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user
+        })
+    });
+    
+    const result = await(res.json());
+    
+    showFeedback(result.status, result.code, feedbackElement);
+};
+
+signupForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const user = {
+        username: signupForm.username.value,
+        password: signupForm.password.value,
+        repeatPassword: signupForm.repeatPassword.value
+    };
+
+    signup(user);
+});
