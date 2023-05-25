@@ -6,10 +6,11 @@
 
     <form class="loginForm">
         <h2>Sign in and wish with us!</h2>
-        <input type="text" id="username" class="username" placeholder="username">
-        <input type="password" id="password" class="password" placeholder="password">
+        <input class="inputField" type="text" id="username" placeholder="username">
+        <input class="inputField" type="password" id="password" placeholder="password">
         <p class="feedback hidden">feedback</p>
-        <button class="submit" type="submit">sign in</button>
+        <button class="submit" type="submit">sign in</button><br><br>
+        <a href="/sign-up" class="redirect">No account? Sign up here.</a>
     </form>
 
 <%- include('partials/footer') %>

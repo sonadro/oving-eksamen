@@ -15,15 +15,14 @@ h2 {
     margin-top: 25px;
 }
 
-#username, #password {
+.inputField {
     padding: 5px;
     margin: 5px;
-    display: block;
 
     border: none;
     border-bottom: 2px solid lightgray;
     
-    width: 35ch;
+    width: 45ch;
 }
 
 .submit {

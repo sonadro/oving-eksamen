@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/statusCodes.css">
+
+    <form class="loginForm">
+        <h2>Become a pretentious wisher!</h2>
+        <input class="inputField" type="text" id="username" placeholder="username">
+        <input class="inputField" type="password" id="password" placeholder="password">
+        <input type="password" class="inputField" id="repeatPassword" placeholder="repeat password">
+        <p class="feedback hidden">feedback</p>
+        <button class="submit" type="submit">sign in</button><br><br>
+        <a href="/sign-in" class="redirect">Already have an account? Sign in here.</a>
+    </form>
+
+<%- include('partials/footer') %>
