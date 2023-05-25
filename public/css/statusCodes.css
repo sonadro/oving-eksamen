@@ -1,0 +1,11 @@
+.userErr {
+    background-color: #ffaaaa;
+}
+
+.serverErr {
+    background-color: #ffaa00;
+}
+
+.ok {
+    background-color: #aaffaa;
+}

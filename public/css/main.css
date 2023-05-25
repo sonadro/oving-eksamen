@@ -34,3 +34,7 @@ nav {
 .rightNav {
     float: inline-end;
 }
+
+.hidden {
+    display: none;
+}
