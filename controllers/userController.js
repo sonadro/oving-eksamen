@@ -128,3 +128,8 @@ module.exports.user_signin = async (req, res) => {
         });
     }
 };
+
+module.exports.user_signout = (req, res) => {
+    res.cookie('jwt', "", {maxAge: 1});
+    res.redirect("/");
+};
