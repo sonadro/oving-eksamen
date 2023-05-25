@@ -15,10 +15,7 @@ const createToken = id => {
 
 // controller
 module.exports.user_signup = async (req, res) => {
-    console.log('NEW INTERACTION ---------------------------');
     const userDetails = req.body.user;
-
-    console.log(userDetails);
     
     // check if username meets length criteria
     if (userDetails.username.length < 3) {
@@ -92,4 +89,42 @@ module.exports.user_signup = async (req, res) => {
             };
         };
     };
+};
+
+module.exports.user_signin = async (req, res) => {
+    const userDetails = req.body.user;
+
+    const dbUser = await User.findOne({ username: userDetails.username });
+
+    // check if user exists
+    if (dbUser) {
+        // check if passwords match
+        const auth = await bcrypt.compare(userDetails.password, dbUser.password);
+
+        if (auth) {
+            // passwords match, log in user
+            const token = createToken(dbUser._id.toString());
+
+            res.cookie('jwt', token, {
+                sameSite: 'strict',
+                httpOnly: true,
+                maxAge: maxAge * 1000
+            });
+
+            res.send({
+                status: `Successfully logged in as '${dbUser.username}!'`,
+                code: 'ok'
+            });
+        } else {
+            res.send({
+                status: 'Wrong password.',
+                code: 'userErr'
+            });
+        }
+    } else {
+        res.send({
+            status: `Couldn't find a user with the username '${userDetails.username}.`,
+            code: 'userErr'
+        });
+    }
 };
