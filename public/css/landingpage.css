@@ -1,0 +1,15 @@
+h1 {
+    text-align: center;
+}
+
+.wishlistContainer {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 18px;
+}
+
+.wishlist {
+    margin-top: 25px;
+}
