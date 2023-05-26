@@ -17,7 +17,7 @@ const getUserWishlists = async () => {
     wishlists.forEach(wishlist => {
         const template = `
             <div class="wishlist"
-                <p><a href="/user/${wishlist.owner}" class="username">${wishlist.owner}</a> - ${wishlist.items[0]}</p>
+                <p><a href="/user/${wishlist.owner}" class="username">${wishlist.owner}</a> - ${wishlist.items[0].value}</p>
             </div>
         `;
 

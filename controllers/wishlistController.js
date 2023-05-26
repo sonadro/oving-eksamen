@@ -79,5 +79,12 @@ module.exports.wishlist_get = async (req, res) => {
 module.exports.wishlist_getall = async (req, res) => {
     const allWishlists = await Wishlist.find({ });
 
-    res.send(allWishlists);
+    let responseWishlists = [];
+    allWishlists.forEach(wishlist => {
+        if (wishlist.items.length > 0) {
+            responseWishlists.push(wishlist);
+        };
+    });
+
+    res.send(responseWishlists);
 };

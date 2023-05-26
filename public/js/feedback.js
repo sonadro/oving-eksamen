@@ -15,6 +15,6 @@ const showFeedback = (status, code, element, refresh) => {
 
     // if statuscode is 'ok', refresh the page
     if (code === 'ok' && refresh) {
-        window.location.reload();
+        window.location = '/home';
     };
 }

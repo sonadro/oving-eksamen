@@ -25,7 +25,7 @@ const setAllFieldValues = values => {
 
     for (let i = 0; i < values.length; i++) {
         // get 'current' input field and item
-        const currentValue = values[i].item.item;
+        const currentValue = values[i].value;
         const currentField = wishlistInputFields[i];
 
         // set the current fields value to the current item
@@ -47,11 +47,13 @@ const getUserItems = async username => {
     
     const result = await(res.json());
 
-    result.items.forEach(item => {
-        userItems.push({
-            item,
+    result.items.forEach(obj => {
+        const listItem = {
+            value: obj.value,
             id: itemID
-        });
+        };
+        
+        userItems.push(listItem);
 
         const template = `
             <li class="item" id="item${itemID}">
@@ -59,7 +61,7 @@ const getUserItems = async username => {
                         <button class="itemUp" id="1up">Move up</button>
                         <button class="itemDown" id="1down">Move down</button>
                     </div>
-                    <input class="itemInput" type="text">
+                    <input class="itemInput" id="input${itemID}" type="text">
                     <div class="updateButtons">
                         <button class="update" id="${itemID}update">Update</button>
                         <button class="delete" id="${itemID}delete">Delete</button>
@@ -98,8 +100,9 @@ addItemsForm.addEventListener('submit', e => {
     e.preventDefault();
 
     const item = addItemsForm.item.value;
+
     userItems.push({
-        item,
+        value: item,
         id: itemID
     });
 
@@ -109,7 +112,7 @@ addItemsForm.addEventListener('submit', e => {
                     <button class="itemUp" id="1up">Move up</button>
                     <button class="itemDown" id="1down">Move down</button>
                 </div>
-                <input class="itemInput" type="text">
+                <input class="itemInput" id="input${itemID}" type="text">
                 <div class="updateButtons">
                     <button class="update" id="${itemID}update">Update</button>
                     <button class="delete" id="${itemID}delete">Delete</button>
@@ -126,7 +129,7 @@ addItemsForm.addEventListener('submit', e => {
     // set styles of the first and second element
     addWishlistStyles(Array.from(wishlistContainer.children));
 
-    // uploadUserItems(userItems);
+    uploadUserItems(userItems);
 });
 
 wishlistForm.addEventListener('click', e => {
@@ -134,7 +137,24 @@ wishlistForm.addEventListener('click', e => {
 
     if (e.target.classList[0] === 'update') {
         // update the item
-        const id = e.target.id.slice(0, 1);
+        const id = Number(e.target.id.slice(0, 1));
+
+        // get corresponding inputfield
+        const inputField = document.querySelector(`#input${id}`);
+
+        // loop through every item, and change the corresponding item's value
+        for (let i = 0; i < userItems.length; i++) {
+            const currentItem = userItems[i];
+
+            // if the id of the item matches the id of the button, update the item's value
+            if (currentItem.id === id) {
+                currentItem.value = inputField.value;
+            };
+        };
+
+        // save changes to the database
+        uploadUserItems(userItems);
+
     } else if (e.target.classList[0] === 'delete') {
         // delete the item - get id from the button's id
         const id = Number(e.target.id.slice(0, 1));

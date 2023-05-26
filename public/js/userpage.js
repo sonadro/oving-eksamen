@@ -1,8 +1,6 @@
 // DOM
 const wishlistContainer = document.querySelector('.wishlist');
 
-let itemID = 1;
-
 // get users wishlist items, to display on the page
 const getUserItems = async username => {
     const res = await fetch('/wishlist-get', {
@@ -19,10 +17,8 @@ const getUserItems = async username => {
 
     result.items.forEach(item => {
         const template = `
-            <li class="item">${itemID}. ${item}</span></li>
+            <li class="item">${item.id}. ${item.value}</span></li>
         `;
-
-        itemID++;
 
         wishlistContainer.innerHTML += template;
     });
