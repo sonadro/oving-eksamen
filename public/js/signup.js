@@ -14,7 +14,7 @@ const signup = async user => {
     
     const result = await(res.json());
     
-    showFeedback(result.status, result.code, feedbackElement);
+    showFeedback(result.status, result.code, feedbackElement, true);
 };
 
 signupForm.addEventListener('submit', e => {

@@ -1,5 +1,5 @@
 // show feedback to user
-const showFeedback = (status, code, element) => {
+const showFeedback = (status, code, element, refresh) => {
     // remove old status classes
     const statusClasses = ['userErr', 'serverErr', 'ok'];
     statusClasses.forEach(statusClass => {
@@ -14,7 +14,7 @@ const showFeedback = (status, code, element) => {
     element.classList.remove('hidden');
 
     // if statuscode is 'ok', refresh the page
-    if (code === 'ok') {
+    if (code === 'ok' && refresh) {
         window.location.reload();
     };
 }

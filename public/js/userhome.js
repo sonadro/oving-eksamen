@@ -60,7 +60,7 @@ const uploadUserItems = async wishlist => {
 
     console.log(result);
 
-    showFeedback(result.status, result.code, feedback);
+    showFeedback(result.status, result.code, feedback, false);
 };
 
 addItemsForm.addEventListener('submit', e => {
