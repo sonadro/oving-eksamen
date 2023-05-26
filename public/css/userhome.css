@@ -1,5 +1,6 @@
-.wishlist li {
+.item {
     border: 2px solid;
+    width: 800px;
 }
 
 .firstItem {
@@ -29,4 +30,30 @@
     font-size: 16px;
     border: none;
     width: 60px;
+}
+
+.item input {
+    width: 50ch;
+}
+
+.item input, .item button {
+    padding: 5px;
+    font-size: 14px;
+    margin: 5px;
+    display: inline-block;
+
+    border-radius: 6px;
+    border: 2px solid black;
+}
+
+.reorderButtons, .updateButtons {
+    display: inline-block;
+}
+
+.itemUp, .submit {
+    background-color: #9f9;
+}
+
+.itemDown, .delete {
+    background-color: #f99;
 }

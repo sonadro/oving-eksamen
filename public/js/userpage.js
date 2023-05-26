@@ -19,7 +19,7 @@ const getUserItems = async username => {
 
     result.items.forEach(item => {
         const template = `
-            <li>${itemID}. ${item}</span></li>
+            <li class="item">${itemID}. ${item}</span></li>
         `;
 
         itemID++;
