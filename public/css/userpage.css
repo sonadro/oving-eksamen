@@ -1,0 +1,17 @@
+.wishlist {
+    width: 200px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wishlist li {
+    margin: 15px;
+    margin-left: auto;
+    margin-right: auto;
+
+    list-style-type: none;
+    text-align: center;
+
+    font-size: 22px;
+}

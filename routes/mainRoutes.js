@@ -8,5 +8,6 @@ const router = Router();
 router.get('/', mainController.home_get);
 router.get('/sign-in', mainController.signin_get);
 router.get('/sign-up', mainController.signup_get);
+router.get('/user/:username', mainController.userpage_get);
 
 module.exports = router;
