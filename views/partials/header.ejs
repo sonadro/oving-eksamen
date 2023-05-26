@@ -27,7 +27,7 @@
             <% if (locals.loggedIn === false) { %>
                 <li class="rightNav"><a href="/sign-in">log in</a></li>
             <% } else { %>
-                <li class="rightNav"><a href="/sign-out">log out</a></li>
+                <li class="rightNav"><a href="/user-signout">log out</a></li>
                 <li class="rightNav"><a href="/home"><%= locals.loggedInUser %></a></li>
             <% }; %>
         </ul>
