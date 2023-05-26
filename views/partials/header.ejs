@@ -23,6 +23,12 @@
             <% } else { %>
                 <li class="middleNav"><h1><a href="/">Wishlist - <%= locals.navText %></a></h1></li>
             <% }; %>
-            <li class="rightNav"><a href="/sign-in">log in</a></li>
+
+            <% if (locals.loggedIn === false) { %>
+                <li class="rightNav"><a href="/sign-in">log in</a></li>
+            <% } else { %>
+                <li class="rightNav"><a href="/sign-out">log out</a></li>
+                <li class="rightNav"><a href="/home"><%= locals.loggedInUser %></a></li>
+            <% }; %>
         </ul>
     </nav><br><br><br><br>
