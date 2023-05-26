@@ -8,13 +8,15 @@ let userItems = [];
 let itemID = 1;
 
 const addWishlistStyles = elements => {
-    elements.forEach(element => {
-        if (element.id === 'item1') {
+    for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        if (i === 0) {
             element.classList.add('firstItem');
-        } else if (element.id === 'item2') {
+            element.classList.remove('secondItem');
+        } else if (i === 1) {
             element.classList.add('secondItem');
         };
-    });
+    };
 };
 
 const setAllFieldValues = values => {
@@ -23,7 +25,7 @@ const setAllFieldValues = values => {
 
     for (let i = 0; i < values.length; i++) {
         // get 'current' input field and item
-        const currentValue = values[i].item;
+        const currentValue = values[i].item.item;
         const currentField = wishlistInputFields[i];
 
         // set the current fields value to the current item
@@ -54,13 +56,13 @@ const getUserItems = async username => {
         const template = `
             <li class="item" id="item${itemID}">
                     <div class="reorderButtons">
-                        <button class="itemUp" id="item1up">Move up</button>
-                        <button class="itemDown" id="item1down">Move down</button>
+                        <button class="itemUp" id="1up">Move up</button>
+                        <button class="itemDown" id="1down">Move down</button>
                     </div>
                     <input class="itemInput" type="text">
                     <div class="updateButtons">
-                        <button class="submit" type="submit">Update</button>
-                        <button class="delete">Delete</button>
+                        <button class="update" id="${itemID}update">Update</button>
+                        <button class="delete" id="${itemID}delete">Delete</button>
                     </div>
                 </li>
         `;
@@ -104,13 +106,13 @@ addItemsForm.addEventListener('submit', e => {
     const template = `
         <li class="item" id="item${itemID}">
                 <div class="reorderButtons">
-                    <button class="itemUp" id="item1up">Move up</button>
-                    <button class="itemDown" id="item1down">Move down</button>
+                    <button class="itemUp" id="1up">Move up</button>
+                    <button class="itemDown" id="1down">Move down</button>
                 </div>
                 <input class="itemInput" type="text">
                 <div class="updateButtons">
-                    <button class="submit" type="submit">Update</button>
-                    <button class="delete">Delete</button>
+                    <button class="update" id="${itemID}update">Update</button>
+                    <button class="delete" id="${itemID}delete">Delete</button>
                 </div>
             </li>
     `;
@@ -125,6 +127,38 @@ addItemsForm.addEventListener('submit', e => {
     addWishlistStyles(Array.from(wishlistContainer.children));
 
     // uploadUserItems(userItems);
+});
+
+wishlistForm.addEventListener('click', e => {
+    e.preventDefault();
+
+    if (e.target.classList[0] === 'update') {
+        // update the item
+        const id = e.target.id.slice(0, 1);
+    } else if (e.target.classList[0] === 'delete') {
+        // delete the item - get id from the button's id
+        const id = Number(e.target.id.slice(0, 1));
+
+        // loop through every item
+        for (let i = 0; i < userItems.length; i++) {
+            const currentItem = userItems[i];
+
+            // if the item's id matches with the button's id, remove it from the array
+            if (currentItem.id === id) {
+                userItems.splice(i, 1);
+            };
+        };
+
+        // get the element with matching id, and remove it
+        const itemElement = document.querySelector(`#item${id}`);
+        itemElement.outerHTML = '';
+
+        // reapply styles for first & second element
+        addWishlistStyles(Array.from(wishlistContainer.children));
+
+        // and finally, send the new data to the database
+        uploadUserItems(userItems);
+    };
 });
 
 // get the users items
