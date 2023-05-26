@@ -58,8 +58,8 @@ const getUserItems = async username => {
         const template = `
             <li class="item" id="item${itemID}">
                     <div class="reorderButtons">
-                        <button class="itemUp" id="1up">Move up</button>
-                        <button class="itemDown" id="1down">Move down</button>
+                        <button class="itemUp" id="${itemID}up">Move up</button>
+                        <button class="itemDown" id="${itemID}down">Move down</button>
                     </div>
                     <input class="itemInput" id="input${itemID}" type="text">
                     <div class="updateButtons">
@@ -109,8 +109,8 @@ addItemsForm.addEventListener('submit', e => {
     const template = `
         <li class="item" id="item${itemID}">
                 <div class="reorderButtons">
-                    <button class="itemUp" id="1up">Move up</button>
-                    <button class="itemDown" id="1down">Move down</button>
+                    <button class="itemUp" id="${itemID}up">Move up</button>
+                    <button class="itemDown" id="${itemID}down">Move down</button>
                 </div>
                 <input class="itemInput" id="input${itemID}" type="text">
                 <div class="updateButtons">
@@ -177,6 +177,64 @@ wishlistForm.addEventListener('click', e => {
         addWishlistStyles(Array.from(wishlistContainer.children));
 
         // and finally, send the new data to the database
+        uploadUserItems(userItems);
+    } else if (e.target.classList[0] === 'itemUp') {
+        // move item up - get id of button clicked
+        const id = Number(e.target.id.slice(0, 1));
+
+        // if id is 1, it's the first element, thus it can't be moved up
+        if (id === 1) return;
+
+        const allInputFields = Array.from(document.querySelectorAll('.itemInput'));
+
+        let previousInputField;
+        let currentInputField;
+
+        // find the previous and current field (current field corresponds with the button the user clicked)
+        for (let i = 0; i < id; i++) {
+            if (id - 2 === i) {
+                previousInputField = allInputFields[i];
+            } else if (id === i + 1) {
+                currentInputField = allInputFields[i];
+            };
+        };
+
+        // swap the inputfield values
+        [previousInputField.value, currentInputField.value] = [currentInputField.value, previousInputField.value];
+
+        // swap the values in the userItems array
+        [userItems[id - 2], userItems[id - 1]] = [userItems[id - 1], userItems[id - 2]];
+
+        // save changes to database
+        uploadUserItems(userItems);
+    } else if (e.target.classList[0] === 'itemDown') {
+        // move item down - find id of the clicked button
+        const id = Number(e.target.id.slice(0, 1));
+
+        // if id + 1 is greater than the amount of items, the item is the last item, thus it can't be moved further down
+        if (id + 1 > userItems.length) return;
+
+        const allInputFields = Array.from(document.querySelectorAll('.itemInput'));
+
+        let currentInputField;
+        let nextInputField;
+
+        // find the current and next input field (current field corresponds with the button the user clicked)
+        for (let i = 0; i < id + 1; i++) {
+            if (id - 1 === i) {
+                currentInputField = allInputFields[i];
+            } else if (id === i) {
+                nextInputField = allInputFields[i];
+            };
+        };
+
+        // swap the values of the inputfields
+        [currentInputField.value, nextInputField.value] = [nextInputField.value, currentInputField.value];
+
+        // swap the values in the userItems array
+        [userItems[id -1], userItems[id]] = [userItems[id], userItems[id -1]];
+
+        // save changes to database
         uploadUserItems(userItems);
     };
 });
