@@ -3,16 +3,19 @@
     <!-- css -->
     <link rel="stylesheet" href="/css/userpage.css">
     <link rel="stylesheet" href="/css/userhome.css">
+    <link rel="stylesheet" href="/css/statusCodes.css">
 
     <form class="addItems">
         <input type="text" id="item" placeholder="add another item to the list..">
         <button type="submit">Add</button>
+        <p class="feedback hidden">feedback</p>
     </form>
 
     <ul class="wishlist">
     </ul>
 
     <!-- script -->
-    <script src="/js/userhome.js"></script>
+    <script src="/js/feedback.js" defer></script>
+    <script src="/js/userhome.js" defer></script>
 
 <%- include('partials/footer') %>

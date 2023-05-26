@@ -18,7 +18,7 @@ module.exports.wishlist_createUpdate = async (req, res) => {
                 // invalid token, deny request
                 res.send({
                     status: 'You aren\'t logged in',
-                    code: 'denied'
+                    code: 'userErr'
                 });
             } else {
                 // valid token, find user
@@ -53,7 +53,7 @@ module.exports.wishlist_createUpdate = async (req, res) => {
                     // user doesn't exist, deny request
                     res.send({
                         status: 'User not found',
-                        code: 'error'
+                        code: 'serverErr'
                     });
                 };
             };
@@ -62,7 +62,7 @@ module.exports.wishlist_createUpdate = async (req, res) => {
         // user has no token, deny request
         res.send({
             status: 'You aren\'t logged in',
-            code: 'denied'
+            code: 'userErr'
         });
     };
 };
@@ -74,4 +74,10 @@ module.exports.wishlist_get = async (req, res) => {
     const wishlist = await Wishlist.findOne({ owner: username });
 
     res.send(wishlist);
+};
+
+module.exports.wishlist_getall = async (req, res) => {
+    const allWishlists = await Wishlist.find({ });
+
+    res.send(allWishlists);
 };

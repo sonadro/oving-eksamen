@@ -1,8 +1,20 @@
+// DOM
 const addItemsForm = document.querySelector('.addItems');
 const wishlistContainer = document.querySelector('.wishlist');
+const feedback = document.querySelector('.feedback');
 
 let userItems = [];
 let itemID = 1;
+
+const addWishlistStyles = elements => {
+    elements.forEach(element => {
+        if (element.id === 'item1') {
+            element.classList.add('firstItem');
+        } else if (element.id === 'item2') {
+            element.classList.add('secondItem');
+        };
+    });
+};
 
 // get users wishlist items, to display on the page
 const getUserItems = async username => {
@@ -28,6 +40,8 @@ const getUserItems = async username => {
 
         wishlistContainer.innerHTML += template;
     });
+
+    addWishlistStyles(Array.from(wishlistContainer.children));
 };
 
 // upload user items 
@@ -45,6 +59,8 @@ const uploadUserItems = async wishlist => {
     const result = await(res.json());
 
     console.log(result);
+
+    showFeedback(result.status, result.code, feedback);
 };
 
 addItemsForm.addEventListener('submit', e => {
@@ -56,10 +72,11 @@ addItemsForm.addEventListener('submit', e => {
     const template = `
         <li id="item${itemID}">${itemID}. ${item}</span></li>
     `;
-    
     itemID++;
 
     wishlistContainer.innerHTML += template;
+
+    addWishlistStyles(Array.from(wishlistContainer.children));
 
     uploadUserItems(userItems);
 });
