@@ -1,0 +1,32 @@
+.wishlist li {
+    border: 2px solid;
+}
+
+.firstItem {
+    font-weight: bold;
+    scale: 1.3;
+}
+
+.secondItem {
+    scale: 1.1;
+}
+
+.addItems {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#item {
+    text-align: center;
+    width: 30ch;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.addItems button {
+    padding: 6px;
+    font-size: 16px;
+    border: none;
+    width: 60px;
+}

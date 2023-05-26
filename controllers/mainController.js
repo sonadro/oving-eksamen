@@ -15,3 +15,8 @@ module.exports.userpage_get = (req, res) => {
     const username = req.params.username;
     res.render('userpage', { title: username, navText: username });
 };
+
+module.exports.userhome_get = (req, res) => {
+    const username = req.params.username;
+    res.render('userhome', { title: username, navText: username });
+};

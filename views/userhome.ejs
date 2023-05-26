@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/userpage.css">
+    <link rel="stylesheet" href="/css/userhome.css">
+
+    <form class="addItems">
+        <input type="text" id="item" placeholder="add another item to the list..">
+        <button type="submit">Add</button>
+    </form>
+
+    <ul class="wishlist">
+        <li class="firstItem"><span class="id">1</span>. <span class="content">Most wanted</span></li>
+        <li class="secondItem"><span class="id">2</span>. <span class="content">Wanted item</span></li>
+        <li><span class="id">3</span>. <span class="content">Wanted item</span></li>
+        <li><span class="id">4</span>. <span class="content">Wanted item</span></li>
+        <li><span class="id">5</span>. <span class="content">Least wanted</span></li>
+    </ul>
+
+    <!-- script -->
+    <script src="/js/userhome.js"></script>
+
+<%- include('partials/footer') %>
